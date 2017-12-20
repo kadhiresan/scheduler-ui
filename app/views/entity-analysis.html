@@ -1,0 +1,31 @@
+<div class="main-container" ng-init="getInstructors();getCourses();getSessions();getWebinars();">
+	<div>
+		<div>
+			<p class="inline-middle chart-filters">	
+				<span>Course</span>
+				<select name="course" ng-options="course._key as course.name for course in courseList" ng-model="entityFilterData.course_key"></select>
+			</p>
+			<button class="blue-btn" ng-click="entityAnalysis('overAll',entityFilterData)">Overall Analysis</button>
+		</div>
+		<div class="chart-filters-content">
+			<p class="chart-filter-head">Filters</p>
+			<p class="inline-middle chart-filters">	
+				<span>Instructor</span>
+				<select name="instructor" ng-options="instructor._key as instructor.name for instructor in instructorList" ng-model="entityFilterData.instructor_key"></select>
+			</p>
+			<!-- <p class="inline-middle chart-filters">	
+				<span>Session</span>
+				<select name="session" ng-options="session._key as session.name for session in sessionList" ng-model="entityFilterData.session_key"></select>
+			</p>
+			<p class="inline-middle chart-filters">
+				<span>Webinar</span>
+				<select name="webinar" ng-options="webinar._key as webinar._key for webinar in webinarList" ng-model="entityFilterData.webinar_key"></select>
+			</p> -->
+			<button class="blue-btn" ng-click="entityAnalysis('filter',entityFilterData)">Show Analysis</button>
+		</div>
+	</div>
+	<div style="width: 70%;margin: 0 auto;">
+		<div id="bar-chart-container"></div>
+	</div>
+	
+</div>

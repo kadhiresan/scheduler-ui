@@ -1,0 +1,211 @@
+@font-face {
+    font-family: 'proximanova-light';
+    src: url('proximanova-light-webfont.eot');
+    /* IE9 Compat Modes */
+    src: url('fonts/proximanova-light-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/proximanova-light-webfont.woff') format('woff'), /* Pretty Modern Browsers */
+    url('fonts/proximanova-light-webfont.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/proximanova-light-webfont.svg') format('svg');
+    /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'proximanova-regular';
+    src: url('proximanova-regular-webfont.eot');
+    /* IE9 Compat Modes */
+    src: url('fonts/proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/proximanova-regular-webfont.woff') format('woff'), /* Pretty Modern Browsers */
+    url('fonts/proximanova-regular-webfont.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/proximanova-regular-webfont.svg') format('svg');
+    /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'proximanova-semibold';
+    src: url('proximanova-semibold-webfont.eot');
+    /* IE9 Compat Modes */
+    src: url('fonts/proximanova-semibold-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/proximanova-semibold-webfont.woff') format('woff'), /* Pretty Modern Browsers */
+    url('fonts/proximanova-semibold-webfont.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/proximanova-semibold-webfont.svg') format('svg');
+    /* Legacy iOS */
+}
+@font-face {
+    font-family: 'montserratlight';
+    src: url('fonts/montserrat-light-webfont.woff2') format('woff2'),
+         url('fonts/montserrat-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+md-toast {
+	z-index: 9999;
+	position: fixed;
+  	&.error {
+	    .md-toast-content {
+	      background: @err-color;
+	      color: white;
+	    }
+  	}
+  	&.info {
+	    .md-toast-content {
+	      background: #31B0D5;
+	      color: white;
+	    }
+  	}
+  	&.success {
+	    .md-toast-content {
+	      background: green;
+	      color: white;
+	    }
+  	}
+}
+body{
+  min-width: 1250px;
+}
+body,button{
+    background-color: #fff;
+    font-family: 'proximanova-regular';
+    color: @text-color;
+}
+html, body{
+    height:100%;
+}
+div,p{
+    &:focus{
+        outline: none;
+    }
+}
+.font-regular{
+    font-family: 'proximanova-regular';
+}
+.font-light{
+    font-family: 'proximanova-light';
+}
+.font-semibold{
+    font-family: 'proximanova-semibold';
+}
+.padding-none{
+    padding: 0;
+}
+.padding-lr-none{
+    padding-left: 0;
+    padding-right: 0;
+}
+.padding-15 {
+    padding: 15px;
+} 
+.margin-none{
+    margin: 0 !important;
+}
+.margin-left-0{
+  margin-left: 0 !important;
+}
+.margin-top-0{
+  margin-top: 0 !important;
+}
+.margin-b30{
+  margin-bottom: 30px;
+}
+.margin-b10{
+  margin-bottom: 10px;
+}
+.margin-l20{
+  margin-left: 20px;
+}
+.full-height{
+  height: 100%;
+}
+.width-auto{
+    width: auto !important;
+}
+.inline-middle{
+    display: inline-block;
+    vertical-align: middle;
+}
+.light-text{
+    color: @light-text;
+}
+.bg-white{
+    background-color: #fff;
+}
+.color-blue{
+    color: @light-blue;
+}
+.bg-steel-blue{
+    background-color: #4682b4 !important;
+}
+.bg-light-blue{
+    background-color: @light-blue;
+}
+.custom-link{
+    color: @light-blue;
+    cursor: pointer;
+}
+.pos-relative{
+    position: relative;
+}
+li{
+	list-style-type: none;
+	padding-left: 25px;
+	margin-bottom: 15px;
+}
+.center-box{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.loader{
+    position: fixed;
+    z-index: 1111;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background: rgba(255,255,255,.4);
+}
+.center-box {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    margin: auto;
+}
+md-dialog-container {
+    position: absolute;
+}
+
+md-dialog {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+md-dialog-actions{
+  .md-button.md-default-theme.md-primary, .md-button.md-primary{
+    color: @light-blue;
+  }
+}
+
+// General classes
+
+.submit-btn{
+    width: 200px;   
+}
+.blue-btn{
+    padding: 8px 20px;
+    color: #fff;
+    background-color: @light-blue;
+    border: none;
+    border-radius: 5px; 
+    box-shadow: 0 0 20px #e8e8e8;
+    font-size: 14px;
+    &[disabled]{
+        opacity: .5;
+    }
+}
+

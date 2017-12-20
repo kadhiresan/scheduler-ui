@@ -1,0 +1,20 @@
+<div>
+	<div ng-include="'views/header.html'"></div>
+	<div class="clearfix">
+		<div class="side-panel">
+			<div>
+				<p style="padding-left:10px;padding-top: 10px;font-size: 18px;">Pages</p>
+				<li class="side-panel-li" ui-sref-active="active" ui-sref="home.analysis">Analysis</li>
+				<li class="side-panel-li" ui-sref-active="active" ui-sref="home.entityAnalysis">Entity Analysis</li>
+				<li class="side-panel-li" ui-sref-active="active" ui-sref="home.uploadForm">Upload</li>
+				<li class="side-panel-li" ui-sref-active="active" ui-sref="home.customEntities">Custom Entities</li>
+			</div>
+		</div>
+		<section ui-view  autoscroll="false" style="background-color: #fff;margin-left: 20%;">
+		  	Looding......
+		</section>
+		<div class="loader" ng-show="pageLoader">
+		    <md-progress-circular md-mode="indeterminate" class="center-box"></md-progress-circular>
+		</div>
+	</div>
+</div>
