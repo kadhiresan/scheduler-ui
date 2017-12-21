@@ -10,94 +10,93 @@
 angular.module('edurekaUiApp')
 .controller('HomeCtrl', function ($scope, $state, userService, utilityService) {
 
-	$scope.upload=function(form, uploadData, fileForm){
+	// $scope.$parent.pageLoader = true;
+	$scope.createSession = function(form,sessionData){
 		if(form.$valid){
-			console.log('uploadData',uploadData);
-			$scope.pageLoader = true;
-			userService.addWebinar(uploadData).then(function(resp){
-	  			console.log('resp addWebinar',resp);
-	            $scope.pageLoader = false;
-
-	          
-
-	            var data = new FormData();
-				$.each($("#uploadFile")[0].files, function(i, file) {
-					console.log('file',file);
-				    data.append('file', file, file.name);
-				});
-
-				// for (var pair of data.entries()) {
-				// 	console.log('pair',pair);
-				// }
-
-	            userService.uploadExcel(data).then(function(resp){
-		  			console.log('resp upload',resp);
-		            $scope.pageLoader = false;
-		        },function(err){
-		            $scope.pageLoader = false;
-		            utilityService.showmdToast('error',err.message);
-		        })
+			$scope.$parent.pageLoader = true;
+			userService.addWebinar(sessionData).then(function(resp){
+	            $scope.$parent.pageLoader = false;
 	        },function(err){
-	            $scope.pageLoader = false;
+	            $scope.$parent.pageLoader = false;
 	            utilityService.showmdToast('error',err.message);
 	        })
 		}
+	}
+
+	$scope.upload=function(){
+		$scope.$parent.pageLoader = true;
+        var data = new FormData();
+		$.each($("#uploadFile")[0].files, function(i, file) {
+		    data.append('file', file, file.name);
+		});
+        userService.uploadExcel(data).then(function(resp){
+            $scope.$parent.pageLoader = false;
+            $scope.uploadResult = resp;
+            $('#uploadModal').modal();
+        },function(err){
+            $scope.$parent.pageLoader = false;
+            utilityService.showmdToast('error',err.message);
+        })
   	};
 
   	$scope.upload
 
   	$scope.getInstructors = function(){
-  		$scope.pageLoader = true;
+  		$scope.$parent.pageLoader = true;
   		userService.getInstructors().then(function(resp){
-            $scope.pageLoader = false;
+            $scope.$parent.pageLoader = false;
             $scope.instructorList = resp.data;
         },function(err){
-            $scope.pageLoader = false;
+            $scope.$parent.pageLoader = false;
             utilityService.showmdToast('error',err.message);
         })
   	};
 
+  	$scope.entityFilterData = {};
   	$scope.getCourses = function(){
-  		$scope.pageLoader = true;
+  		$scope.$parent.pageLoader = true;
   		userService.getCourses().then(function(resp){
-            $scope.pageLoader = false;
+            $scope.$parent.pageLoader = false;
             $scope.courseList = resp.data;
+            if($state.is('home.entityAnalysis')){
+            	$scope.entityFilterData.course_key = $scope.courseList[0]._key;
+        		$scope.entityAnalysis('overAll',$scope.entityFilterData);
+            }
         },function(err){
-            $scope.pageLoader = false;
+            $scope.$parent.pageLoader = false;
             utilityService.showmdToast('error',err.message);
         })
   	};
 
   	$scope.getCustomEntities = function(){
-  		$scope.pageLoader = true;
+  		$scope.$parent.pageLoader = true;
   		userService.getCustomEntities().then(function(resp){
-            $scope.pageLoader = false;
-            console.log('resp',resp);
+            $scope.$parent.pageLoader = false;
             $scope.customEntities = resp.data;
         },function(err){
-            $scope.pageLoader = false;
+            $scope.$parent.pageLoader = false;
             utilityService.showmdToast('error',err.message);
         })
   	};
 
   	$scope.getSessions = function(){
-  		$scope.pageLoader = true;
+  		$scope.$parent.pageLoader = true;
   		userService.getSessions().then(function(resp){
-            $scope.pageLoader = false;
+            $scope.$parent.pageLoader = false;
             $scope.sessionList = resp.data;
         },function(err){
-            $scope.pageLoader = false;
+            $scope.$parent.pageLoader = false;
             utilityService.showmdToast('error',err.message);
         })
   	};
 
   	$scope.getWebinars = function(){
-  		$scope.pageLoader = true;
+  		$scope.$parent.pageLoader = true;
   		userService.getWebinars().then(function(resp){
-            $scope.pageLoader = false;
+            $scope.$parent.pageLoader = false;
             $scope.webinarList = resp.data;
         },function(err){
-            $scope.pageLoader = false;
+            $scope.$parent.pageLoader = false;
             utilityService.showmdToast('error',err.message);
         })
   	};
@@ -105,7 +104,6 @@ angular.module('edurekaUiApp')
   	$scope.openentityModal = function(courseKey){
   		$('#entityModal').modal();
   		$scope.courseKey = courseKey;
-  		console.log('$scope.courseKey',$scope.courseKey);
   	}
 
   	$scope.addEntity = function(form, entity){
@@ -115,11 +113,10 @@ angular.module('edurekaUiApp')
   				custom_entity : entity.entity
   			}
   			userService.addCustomEntity(data).then(function(resp){
-	            $scope.pageLoader = false;
-	            console.log('resp',resp);
+	            $scope.$parent.pageLoader = false;
 	            $scope.getCustomEntities();
 	        },function(err){
-	            $scope.pageLoader = false;
+	            $scope.$parent.pageLoader = false;
 	            utilityService.showmdToast('error',err.message);
 	        })
   		}
@@ -128,7 +125,6 @@ angular.module('edurekaUiApp')
   	$scope.showAnalysis = function(type, filterData){
   		var data;
   		if(type=="overAll"){
-  			console.log('in overAll');
   			data = {};
   			getAnalysis(data);
   		}else{
@@ -140,24 +136,25 @@ angular.module('edurekaUiApp')
   	}
 
   	var getAnalysis = function(data){
-  		console.log('in getAnalysis',data);
   		userService.getAnalysis(data).then(function(resp){
-            $scope.pageLoader = false;
-            renderPiechart(resp.data);
+            $scope.$parent.pageLoader = false;
+        	renderPiechart(resp.data);
         },function(err){
-            $scope.pageLoader = false;
+            $scope.$parent.pageLoader = false;
             utilityService.showmdToast('error',err.message);
         })
   	}
 
   	var getEntityAnalysis = function(data,course){
-  		console.log('in getAnalysis',data);
   		userService.getEntityAnalysis(data, course).then(function(resp){
-  			console.log('resp',resp);
-            $scope.pageLoader = false;
-            renderBarChart(resp.data);
+            $scope.$parent.pageLoader = false;
+            if(resp.data.length){
+            	renderBarChart(resp.data);
+            }else {
+            	utilityService.showmdToast('error','No data Found');
+            }
         },function(err){
-            $scope.pageLoader = false;
+            $scope.$parent.pageLoader = false;
             utilityService.showmdToast('error',err.message);
         })
   	}
@@ -166,13 +163,13 @@ angular.module('edurekaUiApp')
   		var data;
   		if(filterData && filterData.course_key){
 	  		if(type=="overAll"){
-	  			console.log('in overAll');
 	  			data = {};
 	  			getEntityAnalysis(data,filterData.course_key);
 	  		}else{
 	    		if(filterData){
-	    			data = filterData;
-	    			getEntityAnalysis(data,filterData.course_key);
+	    			var newData = JSON.parse(JSON.stringify(filterData))
+	    			delete newData.course_key;
+	    			getEntityAnalysis(newData,filterData.course_key);
 	    		}
 	  		}
 	  	}else{
@@ -247,7 +244,6 @@ angular.module('edurekaUiApp')
         	arr.push(data[key]);
         	chartList.push(arr);
         }
-        console.log('chartList',chartList);
         return {"chartList":chartList}
     }
   
@@ -270,45 +266,32 @@ angular.module('edurekaUiApp')
 		    legend: {
 		        enabled: false
 		    },
+		    title:{
+			    text:''
+			},
 		    plotOptions: {
 		        series: {
 		            borderWidth: 0,
 		            dataLabels: {
 		                enabled: true,
-		                format: '{point.y:.1f}%'
+		                // format: '{point.y:.1f}%',
+		                format: '{point.y:.1f}'
 		            }
 		        }
 		    },
 		    credits : false,
 		    tooltip: {
 		        headerFormat: '',
-		        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+		        // pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+		        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
 		    },
 
 		    series: [{
-		        name: 'Brands',
+		        name: 'Custom Entities',
 		        colorByPoint: true,
 		        data : chartData
-		        // data: [{
-		        //     name: 'study_messages',
-		        //     y: 20
-		        // }, {
-		        //     name: 'voice_messages',
-		        //     y: 30
-		        // }, {
-		        //     name: 'video_issues',
-		        //     y: 50
-		        // }]
 		    }],
 		});
   	}
-  	if($state.is('home.stats')){
-  		setTimeout(function() {
-	    	// renderPiechart();
-	    	// renderBarChart();
-	    }, 100);
-  	}
-    
-    
-
+  	
 });

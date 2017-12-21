@@ -1,21 +1,21 @@
 <div class="main-container" ng-init="getInstructors();getCourses();">
 	<div class="form-container">
-		<form action="" name="uploadForm">
+		<form name="sessionForm">
 			<div class="ip-form-group clearfix">
 				<span>Course</span>
-				<select name="course" ng-options="course._key as course.name for course in courseList" ng-model="uploadData.course_key" required></select>
+				<select name="course" ng-options="course._key as course.name for course in courseList" ng-model="sessionData.course_key" required></select>
 			</div>
 			<div class="ip-form-group clearfix">
 				<span>Instructor</span>
-				<select name="instructor" ng-options="instructor._key as instructor.name for instructor in instructorList" ng-model="uploadData.instructor_key" required></select>
+				<select name="instructor" ng-options="instructor._key as instructor.name for instructor in instructorList" ng-model="sessionData.instructor_key" required></select>
 			</div>
 			<div class="ip-form-group clearfix">
 				<span>Web Id</span>
-				<input type="text" name="webId" ng-model="uploadData.webinar_id" required>
+				<input type="text" name="webId" ng-model="sessionData.webinar_id" required>
 			</div>
 			<div class="ip-form-group clearfix">
 				<span>Name</span>
-				<input type="text" name="name" ng-model="uploadData.name" required>
+				<input type="text" name="name" ng-model="sessionData.name" required>
 			</div>
 			<!-- <div>
 				<span>Upload File</span>
@@ -25,22 +25,50 @@
 			      {{file.name}}
 			    </p>
 			</div> -->
+			<div class="text-center">
+				<button type="submit" class="blue-btn" ng-click="createSession(sessionForm,sessionData)" style="margin-top: 10px;width: 120px;">Submit</button>
+			</div>
 		</form>
+
 		<form id ="fileUpload" ng-submit="upload(uploadForm, uploadData)" enctype="multpart/form-data">
 			<div  class="file-ip-group">
 				<span>Upload Files</span>
 				<div class="file-ip pos-relative">
 					<button type="text" class="blue-btn" style="width:100%;">Choose Files</button>
-					<!-- <input type="file" name="file" type=".xlsx" ng-file-model="files" multiple> -->
-					<input id="uploadFile" type="file" name="file" ng-file-model="files" multiple >
+					<input id="uploadFile" type="file" accept=".xlsx" name="file" ng-file-model="files" multiple >
 				</div>
 				<p ng-repeat="file in files">
 			      {{file.name}}
 			    </p>
-			    <!-- <button class="blue-btn" ng-if="files.length" type="submit">Upload</button> -->
-			    <button class="blue-btn" type="submit">Upload</button>
+			    <button class="blue-btn" ng-if="files.length" type="submit">Upload</button>
+			    <!-- <button class="blue-btn" type="submit">Upload</button> -->
 			</div>
 		</form>
-		
 	</div>
+
+		
+	<div class="modal fade" tabindex="-1" role="dialog" id="uploadModal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Uploaded Files</h4>
+				</div>
+				<div class="modal-body entity-form">
+					<div class="clearfix">
+						<p>Files Inserted</p>
+						<p ng-repeat="item in uploadResult.files_inserted">{{item}}</p>
+					</div>
+					<div>
+						<p>Files Skipped</p>
+						<p ng-repeat="item in uploadResult.files_skipped.files_skipped">{{item}}</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
