@@ -30,36 +30,8 @@
     url('fonts/proximanova-semibold-webfont.svg') format('svg');
     /* Legacy iOS */
 }
-@font-face {
-    font-family: 'montserratlight';
-    src: url('fonts/montserrat-light-webfont.woff2') format('woff2'),
-         url('fonts/montserrat-light-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
 
-}
-md-toast {
-	z-index: 9999;
-	position: fixed;
-  	&.error {
-	    .md-toast-content {
-	      background: @err-color;
-	      color: white;
-	    }
-  	}
-  	&.info {
-	    .md-toast-content {
-	      background: #31B0D5;
-	      color: white;
-	    }
-  	}
-  	&.success {
-	    .md-toast-content {
-	      background: green;
-	      color: white;
-	    }
-  	}
-}
+
 body{
   min-width: 1250px;
 }
@@ -71,10 +43,41 @@ body,button{
 html, body{
     height:100%;
 }
-div,p{
+div,p,li{
     &:focus{
         outline: none;
     }
+}
+md-toast {
+    z-index: 9999;
+    position: fixed;
+    font-size: 22px;
+    &.error {
+        .md-toast-content {
+          background: @err-color;
+          color: white;
+        }
+    }
+    &.info {
+        .md-toast-content {
+          background: #31B0D5;
+          color: white;
+        }
+    }
+    &.success {
+        .md-toast-content {
+          background: green;
+          color: white;
+        }
+    }
+}
+.md-toast-text{
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.cursor-pointer{
+    cursor: pointer;
 }
 .font-regular{
     font-family: 'proximanova-regular';
@@ -92,9 +95,7 @@ div,p{
     padding-left: 0;
     padding-right: 0;
 }
-.padding-15 {
-    padding: 15px;
-} 
+
 .margin-none{
     margin: 0 !important;
 }
@@ -104,15 +105,7 @@ div,p{
 .margin-top-0{
   margin-top: 0 !important;
 }
-.margin-b30{
-  margin-bottom: 30px;
-}
-.margin-b10{
-  margin-bottom: 10px;
-}
-.margin-l20{
-  margin-left: 20px;
-}
+
 .full-height{
   height: 100%;
 }
@@ -130,16 +123,16 @@ div,p{
     background-color: #fff;
 }
 .color-blue{
-    color: @light-blue;
+    color: @light-green;
 }
 .bg-steel-blue{
     background-color: #4682b4 !important;
 }
 .bg-light-blue{
-    background-color: @light-blue;
+    background-color: @light-green;
 }
 .custom-link{
-    color: @light-blue;
+    color: @light-green;
     cursor: pointer;
 }
 .pos-relative{
@@ -168,38 +161,16 @@ li{
     margin: auto;
     background: rgba(255,255,255,.4);
 }
-.center-box {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    margin: auto;
-}
-md-dialog-container {
-    position: absolute;
-}
-
-md-dialog {
-    max-width: 90%;
-    max-height: 90%;
-}
-
-md-dialog-actions{
-  .md-button.md-default-theme.md-primary, .md-button.md-primary{
-    color: @light-blue;
-  }
-}
 
 // General classes
 
 .submit-btn{
     width: 200px;   
 }
-.blue-btn{
+.green-btn{
     padding: 8px 20px;
     color: #fff;
-    background-color: @light-blue;
+    background-color: @light-green;
     border: none;
     border-radius: 5px; 
     box-shadow: 0 0 20px #e8e8e8;

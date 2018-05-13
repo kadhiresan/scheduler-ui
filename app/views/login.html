@@ -1,20 +1,22 @@
 
 
 <div class="loader" ng-show="pageLoader">
-    <md-progress-circular md-mode="indeterminate" class="center-box"></md-progress-circular>
+    <img src="images/loader.gif" alt="" class="center-box">
 </div>
  <div class="login-container">
     <div class="login-content">
+        <p class="color-red">{{errorMsg}}</p>
         <form name="loginForm" >
              <p>
-                <input name="name" type="text" placeholder="User name" required ng-model="user.name" autocomplete="new-password">
+                <input name="name" type="text" placeholder="User name" required ng-model="user.name" >
             </p>
             <p>
-                <input name="password" type="password" placeholder="Password" required ng-model="user.password" autocomplete="new-password">
+                <input name="password" type="password" placeholder="Password" required ng-model="user.password">
             </p>
             <p>
-                <button class="blue-btn" ng-click="Login(loginForm,user)">Login</button>
+                <button class="green-btn" ng-click="login(loginForm, user)">Login</button>
             </p>
+            <p ui-sref="signup" class="cursor-pointer">Create account</p>
         </form>
     </div>
  </div>

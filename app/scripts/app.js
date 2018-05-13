@@ -2,40 +2,23 @@
 
 /**
  * @ngdoc overview
- * @name edurekaUiApp
+ * @name schedulerUiApp
  * @description
- * # edurekaUiApp
+ * # schedulerUiApp
  *
  * Main module of the application.
  */
 angular
-  .module('edurekaUiApp', [
-    'ngAnimate',
+  .module('schedulerUiApp', [
     'ngCookies',
     'ngMessages',
     'ngResource',
     'ngRoute',
-    'ngSanitize',
     'ui.router',
     'ui.bootstrap',
-    'ngMaterial'
+    'ngMaterial',
+    'ngMaterialDatePicker'
   ])
-  // .config(function ($routeProvider) {
-  //   $routeProvider
-  //     .when('/', {
-  //       templateUrl: 'views/main.html',
-  //       controller: 'MainCtrl',
-  //       controllerAs: 'main'
-  //     })
-  //     .when('/about', {
-  //       templateUrl: 'views/about.html',
-  //       controller: 'AboutCtrl',
-  //       controllerAs: 'about'
-  //     })
-  //     .otherwise({
-  //       redirectTo: '/'
-  //     });
-  // });
   .factory('httpinterceptor', ['$q', '$location','$injector', function($q, $location,$injector) {
         return {
             // responseError: function(response) {
@@ -49,10 +32,10 @@ angular
             //     return $q.reject(response);
             // },
             request: function(config) {
-                // if (window.localStorage && localStorage.getItem('token')) {
-                //     var token = localStorage.getItem('token');
-                //     config.headers.Authorization = 'Bearer ' + token;
-                // }
+                if (window.localStorage && localStorage.getItem('user')) {
+                    var token = JSON.parse(localStorage.getItem('user')).token;
+                    config.headers.Authorization = 'Bearer ' + token;
+                }
                 delete config.headers['content-type'];
                 return config;
             },
@@ -60,6 +43,21 @@ angular
     }])
   .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     $httpProvider.interceptors.push('httpinterceptor');
+    var resolve = {
+        auth: (['$q','$location', function($q,$location) {
+            var defer = $q.defer();
+            if (localStorage.getItem('user')){
+                defer.resolve({
+                    user: function() {
+                        return JSON.parse(localStorage.getItem('token'));
+                    }
+                }); 
+            } else {
+                defer.reject();
+            }
+            return defer.promise;
+        }])
+    };
     $urlRouterProvider.otherwise('/');
     $stateProvider
     .state('login', {
@@ -67,31 +65,16 @@ angular
         controller: 'UserCtrl',
         templateUrl: 'views/login.html'
     })
+    .state('signup', {
+        url: '/signup',
+        controller: 'SignupCtrl',
+        templateUrl: 'views/signup.html'
+    })
     .state('home', {
-        abstract : true,
         url: '/home',
         controller: 'HomeCtrl',
-        templateUrl: 'views/homepage.html'
-    })
-    .state('home.analysis', {
-        url: '/analysis',
-        controller: 'HomeCtrl',
-        templateUrl: 'views/stats.html'
-    })
-    .state('home.entityAnalysis', {
-        url: '/entityAnalysis',
-        controller: 'HomeCtrl',
-        templateUrl: 'views/entity-analysis.html'
-    })
-    .state('home.uploadForm', {
-        url: '/upload',
-        controller: 'HomeCtrl',
-        templateUrl: 'views/upload-form.html'
-    })
-    .state('home.customEntities', {
-        url: '/custom-entities',
-        controller: 'HomeCtrl',
-        templateUrl: 'views/custom-entities.html'
+        templateUrl: 'views/homepage.html',
+        resolve : resolve
     });
 
     $locationProvider.hashPrefix('');

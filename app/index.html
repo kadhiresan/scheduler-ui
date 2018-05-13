@@ -9,15 +9,16 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/angular-material-datetimepicker/css/material-datetimepicker.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="edurekaUiApp">
+  <body ng-app="schedulerUiApp">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -43,18 +44,18 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
-    <script src="bower_components/highcharts/highcharts.js"></script>
+    <script src="bower_components/angular-material-datetimepicker/js/angular-material-datetimepicker.js"></script>
+    <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2012-2022.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -62,15 +63,16 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/userCtrl.js"></script>
         <script src="scripts/controllers/homeCtrl.js"></script>
+        <script src="scripts/controllers/signupCtrl.js"></script>
 
         <script src="scripts/services/userService.js"></script>
-        <script src="scripts/services/utilityService.js"></script>
 
         <script src="scripts/directives/helperDirectives.js"></script>
         <!-- endbuild -->
 
         <script>
-            var API_END_POINT = 'http://52.207.65.25:8000';
+            // var API_END_POINT = 'localhost:1337';
+            var API_END_POINT = 'http://13.232.30.145';
         </script>
 </body>
 </html>

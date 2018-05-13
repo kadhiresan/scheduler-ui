@@ -3,18 +3,66 @@
 	<div class="clearfix">
 		<div class="side-panel">
 			<div>
-				<p style="padding-left:10px;padding-top: 10px;font-size: 18px;">Pages</p>
-				<li class="side-panel-li" ui-sref-active="active" ui-sref="home.analysis">Analysis</li>
-				<li class="side-panel-li" ui-sref-active="active" ui-sref="home.entityAnalysis">Entity Analysis</li>
-				<li class="side-panel-li" ui-sref-active="active" ui-sref="home.uploadForm">Upload</li>
-				<li class="side-panel-li" ui-sref-active="active" ui-sref="home.customEntities">Custom Entities</li>
+				<li class="side-panel-li" ng-click="showSchedules = true" ng-class="{'active':showSchedules}">My Schedules</li>
+				<li class="side-panel-li" ng-click="showSchedules = false" ng-class="{'active':!showSchedules}" ng-show="schedulerRole">Book Schedules</li>
 			</div>
 		</div>
-		<section ui-view  autoscroll="false" style="background-color: #fff;margin-left: 20%;">
-		  	Looding......
+		<section  autoscroll="false" style="background-color: #fff;margin-left: 20%;">
+		  	<div class="main-container" ng-if="showSchedules">
+				<div class="col-lg-8" ng-init="getSchedules();">
+					<p><b>My Schedules:</b></p>
+					<div ng-if="!schedulesList || schedulesList.length == 0">
+						<span >No schedules found.</span>
+						<span ng-if="schedulerRole"> Please book your schedule...</span>
+					</div>
+					<table class="table table-striped table-bordered" ng-if="schedulesList && schedulesList.length">
+		     			<thead>
+		     				<tr>
+		     					<th>Name</th>
+		     					<th>Date</th>
+		     					<th>Description</th>
+		     					<th ng-if="schedulerRole">Action</th>
+		     				</tr>
+		     			</thead>
+		     			<tbody>
+		     				<tr ng-repeat="schedule in schedulesList">
+		     					<td ng-if="!schedulerRole">{{schedule.client.userName}}</td>
+		     					<td ng-if="schedulerRole">{{schedule.user.userName}}</td>
+		     					<td>{{schedule.displayDate}}</td>
+		     					<td>{{schedule.description}}</td>
+		     					<td ng-if="schedulerRole"><i class="fa fa-trash-o cursor-pointer" aria-hidden="true" ng-click="deleteSchedules(schedule.id)"></i></td>
+		     				</tr>
+		     			</tbody>
+		    		</table>
+				</div>
+			</div>
+			<div class="main-container" ng-if="!showSchedules">
+				<div class="form-container" ng-init="getSchedulerList();">
+					<form action="">
+						<p class="color-red">{{errorMsg}}</p>
+						<div class="ip-form-group clearfix">
+							<span>Scheduler</span>
+							<select name="" id="" ng-model="scheduler.user" ng-options="schedule.id as schedule.userName for schedule in schedulerList"></select>
+						</div>
+						<div class="ip-form-group clearfix">
+							<span>Description</span>
+							<input type="text" ng-model="scheduler.description">
+						</div>
+						<div class="ip-form-group clearfix">
+							<span>Date & Time</span>
+							<input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime" placeholder="Select Date and Time" show-todays-date="" min-date="minDate" format="DD-MM-YYYY HH:mm:ss" ng-model="scheduler.scheduleDate" class=" md-input" readonly="readonly">
+						</div>
+						<div class="text-center">
+							<button class="green-btn" ng-click="createSchedule(scheduler)">Submit</button>
+						</div>
+					</form>
+					
+				</div>
+			</div>
 		</section>
 		<div class="loader" ng-show="pageLoader">
-		    <md-progress-circular md-mode="indeterminate" class="center-box"></md-progress-circular>
+		    <img src="images/loader.gif" alt="" class="center-box">
 		</div>
+
 	</div>
 </div>

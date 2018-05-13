@@ -44,6 +44,9 @@
         box-shadow: none;
     }
 }
+.color-red{
+    color: @err-color;
+}
 // header
 .header-container{
     margin: 0;
@@ -59,8 +62,8 @@
 }
 
 .signout-btn{
-    border: 1px solid @light-blue;
-    color: @light-blue;
+    border: 1px solid @light-green;
+    color: @light-green;
     border-radius: 5px;
     font-size: 14px;
     background: #fff;
@@ -78,7 +81,7 @@
 }
 
 .side-panel{
-    background-color: @light-blue;
+    background-color: @light-green;
     z-index: 10;
     width:20%;
     color:#fff;
@@ -94,7 +97,7 @@
 }
 .side-panel-li.active{
 	color: #000;
-    background-color: #fff;
+    background-color: #a4a4a4;
 }
 .main-container{
     padding: 20px;
@@ -120,6 +123,19 @@
         background-color: #fff;
     }
 }
+.ip-external{
+    .desc{
+        width: 40%;
+        float: left;
+    }
+    .input-group{
+        width: 60%;
+        float: left;
+    }
+}
+.desc_time{
+    margin-top: 40px;
+}
 .custom-ip{
     width: 50%;
     border : 1px solid @form-border;
@@ -127,72 +143,20 @@
     border-radius: 5px;
     padding-left: 10px;
 }
-.file-ip-group{
-    margin-top: 20px;
-    font-size: 16px;
-   span{
-        display: inline-block;
-        width: 40%;
-        float: left;
-        line-height: 35px;
-    }
+table{
+    // tr{
+    //     td{
+    //         width: 50%;
+    //     }
+    //     th{
+    //         width: 50%;
+    //     }
+    // }
 }
-.file-ip{
-    display: inline-block;
-    height: 36px;
-    border-radius: 4px;
-    cursor: pointer;
-    input{
-        position: absolute;
-        width: 100%;
-        height: 36px;
-        z-index: 10;
-        opacity: 0;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-    }
+.uib-timepicker{
+    width: 100px;
 }
 
-.entities-container{
-    width: 60%;
-}
-.cust-entity{
-    font-size: 16px;
-    padding: 5px;
-}
-.cust-entity-head{
-    i{
-        margin-top: 9px;
-    }
-    p{
-        margin-top: 9px;   
-    }
-}
-.panel-group .panel{
-    border: 1px solid #a4a4a4;
-    box-shadow: none;
-}
-.chart-filters-content{
-    margin-top: 20px;
-    .chart-filter-head{
-        font-size: 18px;
-    }
-}
-.chart-filters{
-    margin-right: 20px;
-   span{
-        display: block;
-        margin-bottom: 5px;
-   }
-    select{
-        width: 150px;
-        border : 1px solid @form-border;
-        height: 35px;
-        border-radius: 5px;
-        padding-left: 10px;
-        background-color: #fff; 
-    }
-}
+
 
 

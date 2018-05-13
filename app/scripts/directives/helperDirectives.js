@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name edurekaUiApp.directive:helperDirectives
+ * @name schedulerUiApp.directive:helperDirectives
  * @description
  * # helperDirectives
  */
-angular.module('edurekaUiApp')
+angular.module('schedulerUiApp')
 .directive('ngFileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
