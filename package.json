@@ -1,5 +1,5 @@
 {
-  "name": "edurekaui",
+  "name": "scheduler-ui",
   "private": true,
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
